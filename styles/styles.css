@@ -22,6 +22,7 @@ form input {
 
 form textarea {
   resize: vertical;
+  padding: 5px;
   margin-bottom: 30px;
 }
 
