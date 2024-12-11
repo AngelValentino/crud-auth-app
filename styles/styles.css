@@ -35,3 +35,7 @@ form button {
   color: white;
   padding: 10px 20px;
 }
+
+.error {
+  color: red;
+}

@@ -8,17 +8,6 @@
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-  <form action="includes/formhandler.inc.php" method="post">
-    <label for="title">Title</label>
-    <input name="title" type="text" id="title">
-
-    <label for="date">Due date</label>
-    <input name="due-date" type="date" id="date">
-
-    <label for="description">Description</label>
-    <textarea name="description" id="description" rows="10"></textarea>
-  
-    <button type="submit">Submit</button>
-  </form>
+  <a href="add.php">Add a task</a>
 </body>
 </html>
