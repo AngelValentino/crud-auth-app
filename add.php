@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add_task_btn'])) {
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+  <form class="submit-task-form" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
     <label for="title">Title</label>
     <div class="error"><?= $errors['title'] ?></div>
     <input name="title" type="text" id="title" value="<?= $title ?>">

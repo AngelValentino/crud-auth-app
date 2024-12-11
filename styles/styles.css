@@ -2,35 +2,35 @@ body {
   font-family: sans-serif;
 }
 
-form {
+.submit-task-form {
   max-width: 500px;
   margin: 25px;
   display: block;
 }
 
-form input,
-form label,
-form textarea {
+.submit-task-form input,
+.submit-task-form label,
+.submit-task-form textarea {
   display: block;
   width: 100%;
 }
 
-form input {
+.submit-task-form input {
   padding: 5px;
   margin-bottom: 15px;
 }
 
-form textarea {
+.submit-task-form textarea {
   resize: vertical;
   padding: 5px;
   margin-bottom: 30px;
 }
 
-form label {
+.submit-task-form label {
   padding-bottom: 5px;
 }
 
-form button {
+.submit-task-form button {
   background-color: green;
   color: white;
   padding: 10px 20px;

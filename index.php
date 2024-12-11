@@ -1,7 +1,31 @@
 <?php
-   try {
-    require_once 'includes/dbh.inc.php';
+  require_once 'includes/dbh.inc.php';
 
+  // Handle delete requests
+  if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-task-btn'])) {
+    try {
+      $idToDelete = $_POST['id-to-delete'];
+
+      if (empty($idToDelete) || !is_numeric($idToDelete)) {
+        die('Invalid ID');
+      }
+
+      // SQL query with placeholders
+      $query = 'DELETE FROM tasks WHERE id = ?';
+
+      // Prepare the SQL statement
+      $stmt = $pdo->prepare($query);
+
+      // Bind values to the statement
+      $stmt->execute([$idToDelete]);
+    }
+    catch (PDOException $e) {
+      die('Query failed: ' . $e->getMessage());
+    }
+  }
+  
+  // Fetch tasks
+  try {
     // SQL query with placeholders
     $query = 'SELECT id, title, due_date, `description` FROM tasks';
 
@@ -34,19 +58,20 @@
   <main>
     <h1>Tasks</h1>
 
-    <?php if(count($tasks) === 0): ?>
+    <?php if(empty($tasks)): ?>
       <p>No tasks to complete.</p>
     <?php endif; ?>
 
     <ul class="tasks_list">
       <?php foreach ($tasks as $task): ?>
         <li class="task">
-          <h2><?= $task['title'] ?></h2>
-          <h5><?= $task['due_date'] ?></h2> 
-          <p><?= $task['description'] ?></p>
-          <button class="task__delete-btn">
-            delete task with an id of <?= $task['id'] ?>
-          </button>
+          <h2><?= htmlspecialchars($task['title']) ?></h2>
+          <h5><?= htmlspecialchars($task['due_date']) ?></h5> 
+          <p><?= htmlspecialchars($task['description']) ?></p>
+          <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+            <input type="hidden" name="id-to-delete" value="<?= htmlspecialchars($task['id']) ?>">
+            <button type="submit" class="task__delete-btn" name="delete-task-btn">delete task</button>
+          </form>
         </li>
       <?php endforeach; ?>
     </ul>
