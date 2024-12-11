@@ -33,6 +33,11 @@
 <body>
   <main>
     <h1>Tasks</h1>
+
+    <?php if(count($tasks) === 0): ?>
+      <p>No tasks to complete.</p>
+    <?php endif; ?>
+
     <ul class="tasks_list">
       <?php foreach ($tasks as $task): ?>
         <li class="task">
