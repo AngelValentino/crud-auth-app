@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add_task_btn'])) {
   } 
   else {
     $title = trim($_POST['title']);
-    echo $title;
   }
 
   if (empty($_POST['due-date'])) {
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add_task_btn'])) {
   } 
   else {
     $dueDate = trim($_POST['due-date']);
-    echo $dueDate;
   }
 
   if (empty($_POST['description'])) {
@@ -30,15 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add_task_btn'])) {
   } 
   else {
     $description = trim($_POST['description']);
-    echo $description;
   }
 
   // Check for errors
-  if (array_filter($errors)) {
-    echo 'there are errors in the form';
-  } 
-  // If there are no errors try to submit the data to the database
-  else {
+  if (!array_filter($errors)) {
+    // If there are no errors try to submit the data to the databse
     try {
       require_once 'includes/dbh.inc.php';
 
