@@ -36,6 +36,40 @@ form button {
   padding: 10px 20px;
 }
 
+a {
+  padding: 10px;
+  background-color: violet;
+  display: inline-block;
+  color: white;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.tasks_list {
+  margin-bottom: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.task {
+  border: 2px solid black;
+  color: #1d1d1d;
+  padding: 10px;
+}
+
+.task__delete-btn {
+  color: red;
+}
+
 .error {
   color: red;
 }

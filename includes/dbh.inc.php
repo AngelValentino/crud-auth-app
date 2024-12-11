@@ -15,8 +15,6 @@ try {
     $pdo = new PDO($dsn, $dbUsername, $dbPassword);
     // Set error mode to exception for better error handling
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    echo "Connected successfully to the database!";
 } 
 catch (PDOException $e) {
     // If connection fails, display the error
