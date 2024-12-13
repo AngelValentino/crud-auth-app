@@ -1,48 +1,14 @@
 <?php
-  require_once 'includes/dbh.inc.php';
+  require_once 'includes/functions.php';
 
   // Handle delete requests
   if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-task-btn'])) {
-    try {
-      $idToDelete = $_POST['id-to-delete'];
-
-      if (empty($idToDelete)) {
-        die('Invalid ID');
-      }
-
-      // SQL query with placeholders
-      $query = 'DELETE FROM tasks WHERE id = ?';
-
-      // Prepare the SQL statement
-      $stmt = $pdo->prepare($query);
-
-      // Bind values to the statement
-      $stmt->execute([$idToDelete]);
-    }
-    catch (PDOException $e) {
-      die('Query failed: ' . $e->getMessage());
-    }
+    $idToDelete = $_POST['id-to-delete'];
+    delete_db_data('tasks', $idToDelete);
   }
   
   // Fetch tasks
-  try {
-    // SQL query with placeholders
-    $query = 'SELECT id, title, due_date, `description` FROM tasks';
-
-    // Prepare and execute the SQL statement
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-
-    $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Close the connection to the database
-    $stmt = null;
-    $pdo = null;
-  }
-  catch (PDOException $e) {
-    die('Query failed: ' . $e->getMessage());
-  }
-
+  $tasks = get_db_data('tasks');
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +36,7 @@
           <p><?= htmlspecialchars($task['description']) ?></p>
           <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
             <input type="hidden" name="id-to-delete" value="<?= htmlspecialchars($task['id']) ?>">
-            <button type="submit" class="task__delete-btn" name="delete-task-btn">delete task</button>
+            <button type="submit" class="task__delete-btn" name="delete-task-btn">Delete task</button>
           </form>
           <a class="edit" href="add.php?id=<?= $task['id'] ?>">Edit task</a>
         </li>

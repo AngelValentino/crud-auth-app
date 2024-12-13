@@ -1,6 +1,6 @@
 <?php
 
-require_once 'includes/dbh.inc.php';
+require_once 'includes/functions.php';
 
 $isEditTask = false;
 $title = $dueDate = $description = '';
@@ -10,6 +10,10 @@ $errors = [
   'description'=> '',
   'id'=> ''
 ];
+
+
+
+//TODO Form validation needs to be refactored into reusable function
 
 // Form validation and add task
 if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add_task_btn'])) {
@@ -37,28 +41,15 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['add_task_btn'])) {
 
   // Check for errors
   if (!array_filter($errors)) {
-    // If there are no errors try to submit the data to the databse
-    try {
+    // If there are no errors submit the data to the databse
+    $isDataSet = set_db_data('tasks', [
+      'title' => $title,
+      'due_date' => $dueDate,
+      'description' => $description
+    ]);
 
-      // SQL query with placeholders
-      $query = 'INSERT INTO tasks (title, due_date, `description`) VALUES (?, ?, ?);';
-
-      // Prepare the SQL statement
-      $stmt = $pdo->prepare($query);
-
-      // Bind values to the statement
-      $stmt->execute([$title, $dueDate, $description]);
-
-      // Close the connection to the database
-      $pdo = null;
-      $stmt = null;
-
-      header('Location: index.php');
-      die();
-    }
-    catch (PDOException $e) {
-      die('Query failed: ' . $e->getMessage());
-    }
+    // Redirect the user to home if everything went alright
+    if ($isDataSet) header('Location: index.php');
   }
 }
 
@@ -94,56 +85,26 @@ if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['edit_task_btn'])) {
 
   // Check for errors
   if (!array_filter($errors)) {
-    // If there are no errors try to submit the data to the databse
-    try {
-      // SQL query with placeholders
-      $query = 'UPDATE tasks SET title = ?, due_date = ?, `description` = ? WHERE id = ?';
+    $isDataUpdated = update_db_data('tasks', [
+      'title' => $title,
+      'due_date' => $dueDate,
+      'description' => $description
+    ], $idToEdit);
 
-      // Prepare the SQL statement
-      $stmt = $pdo->prepare($query);
-
-      // Bind values to the statement
-      $stmt->execute([$title, $dueDate, $description, $idToEdit]);
-
-      // Close the connection to the database
-      $pdo = null;
-      $stmt = null;
-
-      header('Location: index.php');
-      die();
-    }
-    catch (PDOException $e) {
-      die('Query failed: ' . $e->getMessage());
-    }
+    // Redirect the user to home if everything went alright
+    if ($isDataUpdated) header('Location: index.php');
   }
 }
 
 // Add task info for edit
 if (isset($_GET['id']) && !empty($_GET['id'])) {
   $isEditTask = true;
-  // Fetch tasks
-  try {
-    // SQL query with placeholders
-    $query = 'SELECT id, title, due_date, `description` FROM tasks WHERE id = ?';
+  $task = get_db_data('tasks', $_GET['id']);
 
-    // Prepare and execute the SQL statement
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([$_GET['id']]);
-
-    $tasks = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Close the connection to the database
-    $stmt = null;
-    $pdo = null;
-  }
-  catch (PDOException $e) {
-    die('Query failed: ' . $e->getMessage());
-  }
-
-  print_r($tasks);
-  $title = $tasks['title'];
-  $dueDate = $tasks['due_date'];
-  $description = $tasks['description'];
+  print_r($task);
+  $title = $task['title'];
+  $dueDate = $task['due_date'];
+  $description = $task['description'];
 }
 
 ?>
