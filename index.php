@@ -6,7 +6,7 @@
     try {
       $idToDelete = $_POST['id-to-delete'];
 
-      if (empty($idToDelete) || !is_numeric($idToDelete)) {
+      if (empty($idToDelete)) {
         die('Invalid ID');
       }
 
@@ -72,6 +72,7 @@
             <input type="hidden" name="id-to-delete" value="<?= htmlspecialchars($task['id']) ?>">
             <button type="submit" class="task__delete-btn" name="delete-task-btn">delete task</button>
           </form>
+          <a class="edit" href="add.php?id=<?= $task['id'] ?>">Edit task</a>
         </li>
       <?php endforeach; ?>
     </ul>

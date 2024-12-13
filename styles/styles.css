@@ -43,6 +43,13 @@ a {
   color: white;
 }
 
+.edit {
+  padding: 0;
+  background-color: transparent;
+  display: inline-block;
+  color: seagreen;
+}
+
 main {
   margin: 0 auto;
   max-width: 1000px;
