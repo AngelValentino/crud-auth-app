@@ -1,5 +1,48 @@
 <?php
 
+function get_action_location($isEditTask) {
+    if ($isEditTask) {
+        return htmlspecialchars($_SERVER['PHP_SELF']) . '?id=' . htmlspecialchars($_GET['id']);
+    } 
+    else {
+        return htmlspecialchars($_SERVER['PHP_SELF']);
+    }
+}
+
+function validate_form($input, $fields) {
+    $errors = [];
+    $validated = [];
+
+    foreach ($fields as $field => $config) {
+        $label = $config['label'];
+        $regex = isset($config['regex']) ? $config['regex'] : null;
+
+        if (empty($input[$field])) {
+            $errors[$field] = "$label is required";
+            $validated[$field] = $input[$field]; // Keep original value in case of error
+        } 
+        else {
+            // Sanitize the input
+            $value = trim($input[$field]);
+
+            // If a regex is provided, validate the input
+            if ($regex && !preg_match($regex, $value)) {
+                $errors[$field] = "$label has an invalid format";
+                $validated[$field] = $input[$field]; // Keep original value in case of error
+            } 
+            else {
+                $validated[$field] = $value;
+                $errors[$field] = '';
+            }
+        }
+    }
+
+    return [
+        'errors' => $errors,
+        'validated' => $validated
+    ];
+}
+
 function get_db_connection() {
     // Database connection settings
     $host = 'localhost';
