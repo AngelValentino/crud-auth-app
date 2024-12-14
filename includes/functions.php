@@ -1,38 +1,44 @@
 <?php
 
 function get_action_location($isEditTask) {
-    if ($isEditTask) {
-        return htmlspecialchars($_SERVER['PHP_SELF']) . '?id=' . htmlspecialchars($_GET['id']);
+    $baseUrl = htmlspecialchars($_SERVER['PHP_SELF']);
+
+    if ($isEditTask && isset($_GET['id'])) {
+        return $baseUrl . '?id=' . htmlspecialchars($_GET['id']);
     } 
     else {
-        return htmlspecialchars($_SERVER['PHP_SELF']);
+        return $baseUrl;
     }
 }
 
-function validate_form($input, $fields) {
+function validate_form($requestData, $fields) {
+    // Initialize an empty array to store error messages
     $errors = [];
+    // Initialize an empty array to store validated input values
     $validated = [];
 
+    // Loop through each field configuration in the $fields array
     foreach ($fields as $field => $config) {
         $label = $config['label'];
         $regex = isset($config['regex']) ? $config['regex'] : null;
 
-        if (empty($input[$field])) {
+        // Check if the input for the field is empty
+        if (empty($requestData[$field])) {
             $errors[$field] = "$label is required";
-            $validated[$field] = $input[$field]; // Keep original value in case of error
+            $validated[$field] = $requestData[$field]; // Keep original value in case of error
         } 
         else {
-            // Sanitize the input
-            $value = trim($input[$field]);
+            // If the field is not empty, trim the input to remove whitespace
+            $value = trim($requestData[$field]);
 
-            // If a regex is provided, validate the input
+            // If a regex is provided, validate the input against the regex pattern
             if ($regex && !preg_match($regex, $value)) {
                 $errors[$field] = "$label has an invalid format";
-                $validated[$field] = $input[$field]; // Keep original value in case of error
+                $validated[$field] = $requestData[$field]; // Keep original value in case of error
             } 
             else {
-                $validated[$field] = $value;
-                $errors[$field] = '';
+                $validated[$field] = $value; // Store the final validated value 
+                $errors[$field] = ''; // Clean the errors array
             }
         }
     }

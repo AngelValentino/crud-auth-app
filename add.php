@@ -1,13 +1,13 @@
 <?php
   require_once 'includes/functions.php';
 
+  // Init variables
   $isEditTask = false;
   $title = $dueDate = $description = '';
   $errors = [
     'title'=> '',
     'due-date'=> '',
-    'description'=> '',
-    'id'=> ''
+    'description'=> ''
   ];
 
   // Handles adding a task
@@ -61,7 +61,6 @@
       ]
     ]);
 
-  /*   print_r($editTaskValidation); */
     $title = $editTaskValidation['validated']['title'];
     $dueDate = $editTaskValidation['validated']['due-date'];
     $description = $editTaskValidation['validated']['description'];
@@ -82,7 +81,6 @@
     } 
     else {
       $errors = $editTaskValidation['errors'];
-      $errors['id'] = '';
     }
   }
 

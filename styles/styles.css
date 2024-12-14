@@ -4,7 +4,7 @@ body {
 
 .submit-task-form {
   max-width: 500px;
-  margin: 25px;
+  margin: 75px auto;
   display: block;
 }
 
