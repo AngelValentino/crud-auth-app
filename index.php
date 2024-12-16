@@ -1,5 +1,9 @@
 <?php
   require_once 'includes/functions.php';
+  require_once 'config/session_config.php'; 
+
+  configure_session();
+  session_init();
 
   // Handle delete requests
   if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-task-btn'])) {
@@ -9,6 +13,20 @@
   
   // Fetch tasks
   $tasks = get_db_data('tasks');
+
+
+  // Display success message if it exists
+  if (isset($_SESSION['success_message'])) {
+    echo '<p>' . $_SESSION['success_message'] . '</p>';
+    
+    // Clear success message after displaying
+    unset($_SESSION['success_message']);
+  }
+
+  // Retrieve form data from session, if available (in case of errors)
+  $username_value = isset($_SESSION['form_data']['username']) ? $_SESSION['form_data']['username'] : '';
+  $email_value = isset($_SESSION['form_data']['email']) ? $_SESSION['form_data']['email'] : '';
+  $password_value = isset($_SESSION['form_data']['password']) ? $_SESSION['form_data']['password'] : '';
 ?>
 
 <!DOCTYPE html>
@@ -47,29 +65,39 @@
 
     <br>
 
-    <form class="signup-form" action="includes/signup.inc.php" method="POST">
+    <form class="signup-form" action="controllers/signup_controller.php" method="POST">
       <h2>Sign Up</h2>
 
       <label for="signup-form__username-input">Username</label>
-      <input id="signup-form__username-input" type="text" name="username">
+      <?php if (isset($_SESSION['errors']['username'])): ?>
+          <div class="error"><?= $_SESSION['errors']['username'] ?></div>
+      <?php endif; ?>
+      <input id="signup-form__username-input" type="text" name="username" value="<?= htmlspecialchars($username_value) ?>">
 
       <label for="signup-form__email-input">Email</label>
-      <input id="signup-form__email-input" type="text" name="email">
+      <?php if (isset($_SESSION['errors']['email'])): ?>
+          <div class="error"><?= $_SESSION['errors']['email'] ?></div>
+      <?php endif; ?>
+      <input id="signup-form__email-input" type="text" name="email" value="<?= htmlspecialchars($email_value) ?>">
 
       <label for="signup-form__password-input">Password</label>
-      <input id="signup-form__password-input" type="text" name="pwd">
+      <?php if (isset($_SESSION['errors']['password'])): ?>
+          <div class="error"><?= $_SESSION['errors']['password'] ?></div>
+      <?php endif; ?>
+      <input id="signup-form__password-input" type="password" name="password" value="<?= htmlspecialchars($password_value) ?>">
 
       <button class="signup-form__signup-btn" type="submit">Sign Up</button>
     </form>
 
-    <form class="login-form" action="includes/login.inc.php" method="POST">
+
+    <form class="login-form" action="controllers/login_controller.php" method="POST">
       <h2>Log in</h2>
 
       <label for="login-form__username-input">Username</label>
       <input id="login-form__username-input" type="text" name="username">
 
       <label for="login-form__password-input">Password</label>
-      <input id="login-form__password-input" type="text" name="pwd">
+      <input id="login-form__password-input" type="password" name="password">
 
       <button class="login-form__signup-btn" type="submit">Log in</button>
     </form>
