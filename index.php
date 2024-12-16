@@ -43,7 +43,36 @@
       <?php endforeach; ?>
     </ul>
 
-    <a href="add.php">Add a task</a>
+    <a class="add-task-btn" href="add.php">Add a task</a>
+
+    <br>
+
+    <form class="signup-form" action="includes/signup.inc.php" method="POST">
+      <h2>Sign Up</h2>
+
+      <label for="signup-form__username-input">Username</label>
+      <input id="signup-form__username-input" type="text" name="username">
+
+      <label for="signup-form__email-input">Email</label>
+      <input id="signup-form__email-input" type="text" name="email">
+
+      <label for="signup-form__password-input">Password</label>
+      <input id="signup-form__password-input" type="text" name="pwd">
+
+      <button class="signup-form__signup-btn" type="submit">Sign Up</button>
+    </form>
+
+    <form class="login-form" action="includes/login.inc.php" method="POST">
+      <h2>Log in</h2>
+
+      <label for="login-form__username-input">Username</label>
+      <input id="login-form__username-input" type="text" name="username">
+
+      <label for="login-form__password-input">Password</label>
+      <input id="login-form__password-input" type="text" name="pwd">
+
+      <button class="login-form__signup-btn" type="submit">Log in</button>
+    </form>
   </main>
 </body>
 </html>

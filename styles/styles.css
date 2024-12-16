@@ -36,17 +36,16 @@ body {
   padding: 10px 20px;
 }
 
-a {
+.add-task-btn {
   padding: 10px;
   background-color: violet;
   display: inline-block;
   color: white;
+  margin-bottom: 50px;
 }
 
 .edit {
   padding: 0;
-  background-color: transparent;
-  display: inline-block;
   color: seagreen;
 }
 
@@ -61,7 +60,7 @@ h1 {
 }
 
 .tasks_list {
-  margin-bottom: 50px;
+  margin-bottom: 35px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -79,4 +78,46 @@ h1 {
 
 .error {
   color: red;
+}
+
+.signup-form,
+.login-form {
+  display: inline-block;
+}
+
+.signup-form {
+  margin-right: 50px;
+  margin-bottom: 35px;
+}
+
+.signup-form h2,
+.login-form h2 {
+  margin-bottom: 20px;
+}
+
+.signup-form input,
+.signup-form label,
+.login-form input,
+.login-form label  {
+  display: block;
+}
+
+.signup-form label,
+.login-form label {
+  padding-bottom: 5px;
+}
+
+.signup-form input,
+.login-form input {
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.signup-form__signup-btn,
+.login-form__signup-btn {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  margin-top: 20px;
+  border-radius: 2px;
 }
