@@ -120,7 +120,7 @@ function update_db_data($table, $data, $id) {
     }
 }
 
-function get_db_data($table, $id = null) {
+function get_db_data($table, $columm = null, $rowData = null) {
     // Get the PDO connection
     $pdo = get_db_connection();
     
@@ -129,16 +129,16 @@ function get_db_data($table, $id = null) {
         // Fetch tasks
         try {
             // Initialize query variable
-            $query = "SELECT * FROM $table";
+            $query = "SELECT * FROM `$table`";
 
             // If an id is provided, modify the query to fetch a single record
-            if ($id) $query .= ' WHERE id = ?';
+            if ($columm) $query .= " WHERE `$columm` = ?";
 
             // Prepare and execute the SQL statement
             $stmt = $pdo->prepare($query . ';');
-            
-            if ($id) {
-                $stmt->execute([$id]);
+
+            if ($columm) {
+                $stmt->execute([$rowData]);
                 // Fetch the single data as an associative array
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
             } 

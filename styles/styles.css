@@ -113,11 +113,16 @@ h1 {
   margin-bottom: 15px;
 }
 
-.signup-form__signup-btn,
-.login-form__signup-btn {
+.signup-btn,
+.login-btn {
   padding: 10px;
   background-color: black;
   color: white;
   margin-top: 20px;
   border-radius: 2px;
+}
+
+.login-btn {
+  background-color: #eee;
+  color: black;
 }

@@ -1,5 +1,6 @@
 <?php
   require_once 'includes/functions.php';
+  require_once 'models/db_model.php';
 
   // Init variables
   $isEditTask = false;
@@ -87,7 +88,9 @@
   // If we have a get request with an id fetch the task data to populate the form inputs
   if (isset($_GET['id']) && !empty($_GET['id']) && !isset($_POST['edit_task_btn'])) {
     $isEditTask = true;
-    $task = get_db_data('tasks', $_GET['id']);
+    $task = get_db_data('tasks', 'id', $_GET['id']);
+
+    print_r($task);
 
     if ($task) {
       $title = $task['title'];

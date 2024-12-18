@@ -38,3 +38,5 @@ function session_init() {
     }
 }
 
+configure_session();
+session_init();
