@@ -2,7 +2,6 @@
   require_once 'includes/functions.php';
   require_once 'models/db_model.php';
   require_once 'config/session_config.php'; 
-  require_once 'views/signup_view.php';
 
   // Handle delete requests
   if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-task-btn'])) {
@@ -48,21 +47,17 @@
 
     <a class="add-task-btn" href="add.php">Add a task</a>
 
-    <a class="signup-btn" href="pages/signup.php">Sign up</a>
-
-    <br>
-
-    <form class="login-form" action="controllers/login_controller.php" method="POST">
-      <h2>Log in</h2>
-
-      <label for="login-form__username-input">Username</label>
-      <input id="login-form__username-input" type="text" name="username">
-
-      <label for="login-form__password-input">Password</label>
-      <input id="login-form__password-input" type="password" name="password">
-
-      <button class="login-btn" type="submit">Log in</button>
-    </form>
+    <?php 
+      if (isset($_SESSION['user_id'])) {
+        echo "<p class=\"user-text\">Hello {$_SESSION['username']}.</p>";
+        echo '<a class="logout-btn" href="controllers/logout_contr.php?action=logout">Logout</a>';
+      } 
+      else {
+        echo '<p class="user-text">Anonymous user</p>';
+        echo '<a class="signup-btn" href="pages/signup.php">Sign up</a>';
+        echo '<a class="login-btn" href="pages/login.php">Log in</a>';
+      }
+    ?>
   </main>
 </body>
 </html>

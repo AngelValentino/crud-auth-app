@@ -1,11 +1,5 @@
 <?php
 
-require_once '../config/session_config.php'; 
-require_once '../models/db_model.php'; 
-require_once '../models/signup_model.php';
-
-$errors = [];
-
 function validate_username($username) {
     if (empty($username)) {
         return 'Username is required.';
@@ -40,14 +34,18 @@ function validate_password($password) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    require_once '../config/session_config.php'; 
+    require_once '../models/db_model.php'; 
+    require_once '../models/signup_model.php';
+
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
     // Validate inputs
     $errors = [
-        'username' => validate_username($username, $db_get),
-        'email' => validate_email($email, $db_get),
+        'username' => validate_username($username),
+        'email' => validate_email($email),
         'password' => validate_password($password)
     ];
 

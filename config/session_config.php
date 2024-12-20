@@ -16,7 +16,7 @@ function configure_session() {
 
 // Session regeneration function
 function regenerate_session_id() {
-    session_regenerate_id();
+    session_regenerate_id(true);
     $_SESSION['last_regenerated_at'] = time();
 }
 

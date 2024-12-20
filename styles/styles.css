@@ -39,9 +39,10 @@ body {
 .add-task-btn {
   padding: 10px;
   background-color: violet;
-  display: inline-block;
   color: white;
-  margin-bottom: 50px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 25px;
 }
 
 .edit {
@@ -60,7 +61,7 @@ h1 {
 }
 
 .tasks_list {
-  margin-bottom: 35px;
+  margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -114,15 +115,19 @@ h1 {
 }
 
 .signup-btn,
-.login-btn {
+.login-btn,
+.logout-btn {
   padding: 10px;
   background-color: black;
   color: white;
-  margin-top: 20px;
   border-radius: 2px;
+  display: inline-block;
 }
 
 .login-btn {
-  background-color: #eee;
-  color: black;
+  background-color: seagreen;
+}
+
+.user-text {
+  margin-bottom: 10px;
 }
