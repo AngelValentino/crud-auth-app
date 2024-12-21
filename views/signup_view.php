@@ -44,7 +44,7 @@ function render_signup_form($errors, $form_data) {
 
     // Return the HTML form with error messages and values injected
     return <<<HTML
-        <form class="signup-form" action="../controllers/signup_controller.php" method="POST">
+        <form class="signup-form" action="controllers/signup_contr.php" method="POST">
             <h2>Sign Up</h2>
             
             <label for="signup-form__username-input">Username</label>

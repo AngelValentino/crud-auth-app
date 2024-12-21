@@ -1,4 +1,5 @@
 <?php
+  require_once 'config/session_config.php';
   require_once 'includes/functions.php';
   require_once 'models/db_model.php';
 
@@ -106,33 +107,29 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/styles.css">
-</head>
-<body>
-  <form class="submit-task-form" action="<?php get_action_location($isEditTask) ?>" method="POST">
-    <label for="title">Title</label>
-    <div class="error"><?= $errors['title'] ?></div>
-    <input name="title" type="text" id="title" value="<?= htmlspecialchars($title) ?>">
+<?php include 'templates/header.php'; ?>
+  <main>
+    <form class="submit-task-form" action="<?php get_action_location($isEditTask) ?>" method="POST">
+        <label for="title">Title</label>
+        <div class="error"><?= $errors['title'] ?></div>
+        <input name="title" type="text" id="title" value="<?= htmlspecialchars($title) ?>">
 
-    <label for="date">Due date</label>
-    <div class="error"><?= $errors['due-date'] ?></div>
-    <input name="due-date" type="date" id="date" value="<?= htmlspecialchars($dueDate) ?>">
+        <label for="date">Due date</label>
+        <div class="error"><?= $errors['due-date'] ?></div>
+        <input name="due-date" type="date" id="date" value="<?= htmlspecialchars($dueDate) ?>">
 
-    <label for="description">Description</label>
-    <div class="error"><?= $errors['description'] ?></div>
-    <textarea name="description" id="description" rows="10"><?= htmlspecialchars($description) ?></textarea>
+        <label for="description">Description</label>
+        <div class="error"><?= $errors['description'] ?></div>
+        <textarea name="description" id="description" rows="10"><?= htmlspecialchars($description) ?></textarea>
 
-    <?php if($isEditTask): ?>
-      <input type="hidden" name="id-to-edit" value="<?= htmlspecialchars($_GET['id']) ?>">
-      <button type="submit" name="edit_task_btn">Submit</button>
-    <?php else: ?>
-      <button type="submit" name="add_task_btn">Submit</button>
-    <?php endif; ?> 
-  </form>
+        <?php if($isEditTask): ?>
+          <input type="hidden" name="id-to-edit" value="<?= htmlspecialchars($_GET['id']) ?>">
+          <button type="submit" name="edit_task_btn">Submit</button>
+        <?php else: ?>
+          <button type="submit" name="add_task_btn">Submit</button>
+        <?php endif; ?> 
+      </form>
+  </main>
+  <?php include 'templates/footer.html'; ?>
 </body>
 </html>

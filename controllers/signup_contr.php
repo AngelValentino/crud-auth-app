@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'email' => $email
         ];
 
-        header('Location: ../pages/signup.php');
+        header('Location: ../signup.php');
         die();
     }
 } 

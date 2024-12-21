@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'username' => $username
         ];
 
-        header('Location: ../pages/login.php');
+        header('Location: ../login.php');
         die();
     }
 }

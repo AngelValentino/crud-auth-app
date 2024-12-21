@@ -15,14 +15,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRUD auth app</title>
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/styles.css">
-</head>
-<body>
+  <?php include 'templates/header.php'; ?>
   <main>
     <h1>Tasks</h1>
 
@@ -46,18 +39,6 @@
     </ul>
 
     <a class="add-task-btn" href="add.php">Add a task</a>
-
-    <?php 
-      if (isset($_SESSION['user_id'])) {
-        echo "<p class=\"user-text\">Hello {$_SESSION['username']}.</p>";
-        echo '<a class="logout-btn" href="controllers/logout_contr.php?action=logout">Logout</a>';
-      } 
-      else {
-        echo '<p class="user-text">Anonymous user</p>';
-        echo '<a class="signup-btn" href="pages/signup.php">Sign up</a>';
-        echo '<a class="login-btn" href="pages/login.php">Log in</a>';
-      }
-    ?>
   </main>
-</body>
+  <?php include 'templates/footer.html'; ?>
 </html>

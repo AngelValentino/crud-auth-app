@@ -2,9 +2,86 @@ body {
   font-family: sans-serif;
 }
 
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 125px 30px 50px;
+  min-height: 100vh;
+}
+
+
+/* Navigation */
+
+.navbar {
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.09);
+  top: 0;
+  padding: 0 30px;
+}
+
+.navbar__nav {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar__title {
+  display: inline-block;
+}
+
+.navbar__title-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar__title-icon {
+  width: 1.47rem;
+}
+
+.navbar__auth-btns {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.signup-btn,
+.login-btn,
+.logout-btn {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.login-btn {
+  background-color: seagreen;
+}
+
+/* End of Navigation */
+
+
+/* Footer */
+
+footer {
+  background-color: #2d2e32;
+  color: white;
+  padding: 50px 30px;
+}
+
+.footer__container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* End of footer  */
+
 .submit-task-form {
   max-width: 500px;
-  margin: 75px auto;
   display: block;
 }
 
@@ -48,16 +125,6 @@ body {
 .edit {
   padding: 0;
   color: seagreen;
-}
-
-main {
-  margin: 0 auto;
-  max-width: 1000px;
-  padding: 20px;
-}
-
-h1 {
-  margin-bottom: 20px;
 }
 
 .tasks_list {
@@ -112,22 +179,4 @@ h1 {
 .login-form input {
   padding: 5px;
   margin-bottom: 15px;
-}
-
-.signup-btn,
-.login-btn,
-.logout-btn {
-  padding: 10px;
-  background-color: black;
-  color: white;
-  border-radius: 2px;
-  display: inline-block;
-}
-
-.login-btn {
-  background-color: seagreen;
-}
-
-.user-text {
-  margin-bottom: 10px;
 }
