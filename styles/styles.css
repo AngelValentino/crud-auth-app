@@ -9,7 +9,6 @@ main {
   min-height: 100vh;
 }
 
-
 /* Navigation */
 
 .navbar {
@@ -80,34 +79,36 @@ footer {
 
 /* End of footer  */
 
-.submit-task-form {
+/* Manage task form */
+
+.manage-task-form {
   max-width: 500px;
   display: block;
 }
 
-.submit-task-form input,
-.submit-task-form label,
-.submit-task-form textarea {
+.manage-task-form input,
+.manage-task-form label,
+.manage-task-form textarea {
   display: block;
   width: 100%;
 }
 
-.submit-task-form input {
+.manage-task-form input {
   padding: 5px;
   margin-bottom: 15px;
 }
 
-.submit-task-form textarea {
+.manage-task-form textarea {
   resize: vertical;
   padding: 5px;
   margin-bottom: 30px;
 }
 
-.submit-task-form label {
+.manage-task-form label {
   padding-bottom: 5px;
 }
 
-.submit-task-form button {
+.manage-task-form button {
   background-color: green;
   color: white;
   padding: 10px 20px;
@@ -122,10 +123,8 @@ footer {
   margin-bottom: 25px;
 }
 
-.edit {
-  padding: 0;
-  color: seagreen;
-}
+/* End of manage task form */
+
 
 .tasks_list {
   margin-bottom: 50px;

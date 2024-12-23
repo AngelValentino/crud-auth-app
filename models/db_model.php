@@ -68,7 +68,9 @@ function set_db_data($table, $data) {
             $pdo = null;
             $stmt = null;
         }
-    }
+    } 
+
+    return null;
 }
 
 function update_db_data($table, $data, $id) {
@@ -120,7 +122,7 @@ function update_db_data($table, $data, $id) {
     }
 }
 
-function get_db_data($table, $columm = null, $rowData = null) {
+function get_db_data($table, $columm = null, $rowData = null, $isEdit = null) {
     // Get the PDO connection
     $pdo = get_db_connection();
     
@@ -137,13 +139,19 @@ function get_db_data($table, $columm = null, $rowData = null) {
             // Prepare and execute the SQL statement
             $stmt = $pdo->prepare($query . ';');
 
-            if ($columm) {
+            if ($isEdit) {
                 $stmt->execute([$rowData]);
                 // Fetch the single data as an associative array
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
             } 
             else {
-                $stmt->execute();
+                if ($rowData) {
+                    $stmt->execute([$rowData]);
+                } 
+                else {
+                    $stmt->execute();
+                }   
+              
                 // Fetch all data as an array of associative arrays(2D array)
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }  
@@ -153,7 +161,7 @@ function get_db_data($table, $columm = null, $rowData = null) {
         catch (PDOException $e) {
             // If connection fails, display the error
             echo 'Query failed: ' . $e->getMessage();
-            return [];
+            return null;
         }
         finally {
             // Close the connection to the database
@@ -162,7 +170,7 @@ function get_db_data($table, $columm = null, $rowData = null) {
         }
     }
 
-    return [];
+    return null;
 }
 
 function delete_db_data($table, $id) {

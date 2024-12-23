@@ -1,16 +1,8 @@
 <?php
-  require_once 'includes/functions.php';
-  require_once 'models/db_model.php';
   require_once 'config/session_config.php'; 
-
-  // Handle delete requests
-  if ($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['delete-task-btn'])) {
-    $idToDelete = $_POST['id-to-delete'];
-    delete_db_data('tasks', $idToDelete);
-  }
-
-  // Fetch tasks
-  $tasks = get_db_data('tasks');
+  require_once 'models/db_model.php';
+  require_once 'models/task_model.php';
+  require_once 'views/task_view.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,24 +11,11 @@
   <main>
     <h1>Tasks</h1>
 
-    <?php if(empty($tasks)): ?>
-      <p>No tasks to complete.</p>
+    <?php if (isset($_SESSION['user_id'])): ?>
+      <?= render_user_tasks('get_user_tasks', 'get_db_data', $_SESSION['user_id']) ?>
+    <?php else: ?>
+      <p>You must be logged in to see your current tasks.</p>
     <?php endif; ?>
-
-    <ul class="tasks_list">
-      <?php foreach ($tasks as $task): ?>
-        <li class="task">
-          <h2><?= htmlspecialchars($task['title']) ?></h2>
-          <h5><?= htmlspecialchars($task['due_date']) ?></h5> 
-          <p><?= htmlspecialchars($task['description']) ?></p>
-          <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
-            <input type="hidden" name="id-to-delete" value="<?= htmlspecialchars($task['id']) ?>">
-            <button type="submit" class="task__delete-btn" name="delete-task-btn">Delete task</button>
-          </form>
-          <a class="edit" href="add.php?id=<?= $task['id'] ?>">Edit task</a>
-        </li>
-      <?php endforeach; ?>
-    </ul>
 
     <a class="add-task-btn" href="add.php">Add a task</a>
   </main>
