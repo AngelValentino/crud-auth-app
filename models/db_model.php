@@ -120,6 +120,8 @@ function update_db_data($table, $data, $id) {
             $stmt = null;
         }
     }
+
+    return false;
 }
 
 function get_db_data($table, $columm = null, $rowData = null, $onlyOne = null) {

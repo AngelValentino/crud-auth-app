@@ -63,8 +63,41 @@ function render_add_task_form($errors, $formData) {
     HTML;
 }
 
+function render_edit_task_form($taskData, $errors, $formData, $taskId) {
+    // Assign values with htmlspecialchars to avoid XSS vulnerabilities
+    $title = isset($formData['title']) ? htmlspecialchars($formData['title']) : $taskData['title'];
+    $dueDate = isset($formData['dueDate']) ? htmlspecialchars($formData['dueDate']) : $taskData['due_date'];
+    $description = isset($formData['description']) ? htmlspecialchars($formData['description']) : $taskData['description'];
+
+    // Prepare error messages for each field
+    $titleError = isset($errors['title']) ? "<div class='error'>{$errors['title']}</div>" : '';
+    $dueDateError = isset($errors['dueDate']) ? "<div class='error'>{$errors['dueDate']}</div>" : '';
+    $descriptionError = isset($errors['description']) ? "<div class='error'>{$errors['description']}</div>" : '';
+
+    // Return the HTML form with error messages and values injected
+    return <<<HTML
+        <form class="manage-task-form" action="controllers/edit_task_contr.php" method="POST">
+            <label for="manage-task-form__title">Title</label>
+            $titleError
+            <input name="title" type="text" id="manage-task-form__title" value="$title">
+
+            <label for="manage-task-form__due-date">Due date</label>
+            $dueDateError
+            <input name="dueDate" type="date" id="manage-task-form__due-date" value="$dueDate">
+
+            <label for="manage-task-form__description">Description</label>
+            $descriptionError
+            <textarea name="description" id="manage-task-form__description" rows="10">$description</textarea>
+
+            <input type="hidden" value="$taskId" name="taskId">
+            <button type="submit" name="editTaskBtn">Submit</button>
+        </form>
+    HTML;
+}
+
+
 function render_user_tasks(callable $get_user_tasks, callable $get_db_data, $user_id) {
-    $tasks = $get_user_tasks($get_db_data, $user_id);
+    $tasks = $get_user_tasks($get_db_data, 'user_id', $user_id);
 
     if ($tasks === null) {
         return '<p>An error occurred while retrieving your tasks. Please try again later.</p>';
@@ -89,6 +122,8 @@ function render_user_tasks(callable $get_user_tasks, callable $get_db_data, $use
                     <h5>$dueDate</h5>
                     <p>$description</p>
                     <a class="task__delete-btn" href="controllers/delete_task_contr.php?action=delete&task-id=$taskId">Delete task</a>
+                    <br>
+                    <a class="task__edit-btn" href="edit.php?task-id=$taskId">Edit task</a>
                 </li>
             HTML;
         }

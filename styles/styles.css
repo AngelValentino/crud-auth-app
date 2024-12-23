@@ -147,6 +147,10 @@ footer {
   color: red;
 }
 
+.task__edit-btn {
+  color: green;
+}
+
 .error {
   color: red;
 }
