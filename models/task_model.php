@@ -15,3 +15,8 @@ function get_user_tasks(callable $get_db_data, $user_id) {
     $userTasks = $get_db_data('tasks', 'user_id', $user_id);
     return $userTasks;
 }
+
+function delete_task(callable $delete_db_data, $taskId) {
+    $isTaskDeleted = $delete_db_data('tasks', $taskId);
+    return $isTaskDeleted;
+}

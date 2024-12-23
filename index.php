@@ -9,7 +9,7 @@
 <html lang="en">
   <?php include 'templates/header.php'; ?>
   <main>
-    <h1>Tasks</h1>
+    <h1 class="user-tasks-title">Tasks</h1>
 
     <?php if (isset($_SESSION['user_id'])): ?>
       <?= render_user_tasks('get_user_tasks', 'get_db_data', $_SESSION['user_id']) ?>

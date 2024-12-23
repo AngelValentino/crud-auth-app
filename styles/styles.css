@@ -79,6 +79,10 @@ footer {
 
 /* End of footer  */
 
+.user-tasks-title {
+  margin-bottom: 25px;
+}
+
 /* Manage task form */
 
 .manage-task-form {

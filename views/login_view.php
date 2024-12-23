@@ -43,7 +43,7 @@ function render_login_form($errors, $form_data) {
     // Return the HTML form with error messages and values injected
     return <<<HTML
         <form class="login-form" action="controllers/login_contr.php" method="POST">
-            <h2>Sign Up</h2>
+            <h2>Log In</h2>
             
             <label for="login-form__username-input">Username</label>
             $username_error

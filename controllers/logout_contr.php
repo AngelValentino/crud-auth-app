@@ -1,7 +1,5 @@
 <?php
 
-require_once '../config/session_config.php';
-
 // Logout function
 function logout() {
     // Destroy all session data
@@ -17,5 +15,10 @@ function logout() {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'logout') {
+    require_once '../config/session_config.php';
     logout();
+} 
+else {
+    header('Location: ../index.php');
+    exit;
 }

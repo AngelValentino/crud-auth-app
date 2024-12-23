@@ -122,7 +122,7 @@ function update_db_data($table, $data, $id) {
     }
 }
 
-function get_db_data($table, $columm = null, $rowData = null, $isEdit = null) {
+function get_db_data($table, $columm = null, $rowData = null, $onlyOne = null) {
     // Get the PDO connection
     $pdo = get_db_connection();
     
@@ -139,7 +139,7 @@ function get_db_data($table, $columm = null, $rowData = null, $isEdit = null) {
             // Prepare and execute the SQL statement
             $stmt = $pdo->prepare($query . ';');
 
-            if ($isEdit) {
+            if ($onlyOne) {
                 $stmt->execute([$rowData]);
                 // Fetch the single data as an associative array
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -202,4 +202,6 @@ function delete_db_data($table, $id) {
             $pdo = null;
         }
     }
+    
+    return false;
 }

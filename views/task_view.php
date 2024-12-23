@@ -88,10 +88,7 @@ function render_user_tasks(callable $get_user_tasks, callable $get_db_data, $use
                     <h2>$title</h2>
                     <h5>$dueDate</h5>
                     <p>$description</p>
-                    <form action="" method="POST">
-                        <input type="hidden" name="id-to-delete" value="$taskId">
-                        <button type="submit" class="task__delete-btn" name="delete-task-btn">Delete task</button>
-                    </form>
+                    <a class="task__delete-btn" href="controllers/delete_task_contr.php?action=delete&task-id=$taskId">Delete task</a>
                 </li>
             HTML;
         }
