@@ -1,11 +1,10 @@
 <?php
   require_once 'config/session_config.php'; 
   require_once 'views/signup_view.php';
-  
-  // Set errors if there are any
-  $errors = check_signup_errors();
-  // Fetch form data from session
-  $form_data = get_form_data();
+
+  if (isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+  }
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +19,7 @@
 <body>
   <?php include 'templates/header.php'; ?>
   <main>
-    <?= render_signup_form($errors, $form_data) ?>
+    <?= render_signup_form(check_signup_errors(), get_form_data()) ?>
   </main>
   <?php include 'templates/footer.html'; ?>
 </body>

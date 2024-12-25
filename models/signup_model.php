@@ -1,7 +1,7 @@
 <?php
 
-function check_user_exists(callable $get_db_data, $column, $value) {
-    return $get_db_data('users', $column, $value, true);
+function check_user_exists(callable $get_db_data, $conditions) {
+    return $get_db_data('users', $conditions, true);
 }
 
 function create_user(callable $set_db_data, $username, $email, $password) {

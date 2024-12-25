@@ -4,7 +4,7 @@ function validate_username($username) {
     if (empty($username)) {
         return 'Username is required.';
     }
-    if (check_user_exists('get_db_data', 'username', $username)) {
+    if (check_user_exists('get_db_data', ['username' => $username])) {
         return 'Username is already being used, try another one.';
     }
     return null;
@@ -17,7 +17,7 @@ function validate_email($email) {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return 'Email is not valid.';
     }
-    if (check_user_exists('get_db_data', 'email', $email)) {
+    if (check_user_exists('get_db_data', ['email' => $email])) {
         return 'Email is already being used, try another one.';
     }
     return null;

@@ -96,9 +96,7 @@ function render_edit_task_form($taskData, $errors, $formData, $taskId) {
 }
 
 
-function render_user_tasks(callable $get_user_tasks, callable $get_db_data, $user_id) {
-    $tasks = $get_user_tasks($get_db_data, 'user_id', $user_id);
-
+function render_user_tasks($tasks) {
     if ($tasks === null) {
         return '<p>An error occurred while retrieving your tasks. Please try again later.</p>';
     }

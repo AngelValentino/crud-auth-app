@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
-    $user_data = get_user('get_db_data', 'username', $username);
+    $user_data = get_user('get_db_data', ['username' => $username]);
 
     // Validate inputs
     $errors = [

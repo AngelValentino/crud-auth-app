@@ -73,7 +73,7 @@ function set_db_data($table, $data) {
     return null;
 }
 
-function update_db_data($table, $data, $id) {
+function update_db_data($table, $dataToUpdate, $conditions) {
     // Get the PDO connection
     $pdo = get_db_connection();
 
@@ -81,8 +81,8 @@ function update_db_data($table, $data, $id) {
     if (isset($pdo)) {
         try {
             // Extract column names and values from the $data array
-            $columns = array_keys($data);
-            $values = array_values($data);
+            $columns = array_keys($dataToUpdate);
+            $values = array_values($dataToUpdate);
 
             // Dynamically construct the SET part of the query
             $setClause = '';
@@ -90,19 +90,27 @@ function update_db_data($table, $data, $id) {
                 $setClause .= format_column($column) . ' = ?';
 
                 // Add trailing comma and space if it is not the last element
-                if ($index < count($data) - 1) {
+                if ($index < count($dataToUpdate) - 1) {
                     $setClause .= ', ';
                 }
             }
 
             // SQL query with placeholders
-            $query = "UPDATE $table SET $setClause WHERE id = ?;";
+            $query = "UPDATE $table SET $setClause";
 
+            // Build the WHERE clause dynamically if conditions are provided
+            if (!empty($conditions)) {
+                $whereClauses = [];
+                foreach ($conditions as $column => $rowData) {
+                    $whereClauses[] = "`$column` = ?";
+                    $values[] = $rowData;
+                }
+                $query .= " WHERE " . implode(" AND ", $whereClauses);
+            }
+
+            echo $query;
             // Prepare the SQL statement
-            $stmt = $pdo->prepare($query);
-
-            // Add the ID to the values array for the WHERE clause
-            $values[] = $id;
+            $stmt = $pdo->prepare($query . ';');
 
             // Bind values to the statement
             $stmt->execute($values);
@@ -124,7 +132,7 @@ function update_db_data($table, $data, $id) {
     return false;
 }
 
-function get_db_data($table, $columm = null, $rowData = null, $onlyOne = null) {
+function get_db_data($table, $conditions = [], $onlyOne = null) {
     // Get the PDO connection
     $pdo = get_db_connection();
     
@@ -134,29 +142,32 @@ function get_db_data($table, $columm = null, $rowData = null, $onlyOne = null) {
         try {
             // Initialize query variable
             $query = "SELECT * FROM `$table`";
+            $values = [];
 
-            // If an id is provided, modify the query to fetch a single record
-            if ($columm) $query .= " WHERE `$columm` = ?";
+            // Build the WHERE clause dynamically if conditions are provided
+            if (!empty($conditions)) {
+                $whereClauses = [];
+                foreach ($conditions as $column => $rowData) {
+                    $whereClauses[] = "`$column` = ?";
+                    $values[] = $rowData;
+                }
+                $query .= " WHERE " . implode(" AND ", $whereClauses);
+            }
 
             // Prepare and execute the SQL statement
-            $stmt = $pdo->prepare($query . ';');
+            if ($onlyOne) $query .= " LIMIT 1";  
+            $stmt = $pdo->prepare($query . ';'); 
+            // Execute the statement with parameters
+            $stmt->execute($values);
 
             if ($onlyOne) {
-                $stmt->execute([$rowData]);
-                // Fetch the single data as an associative array
+                // Fetch a single record
                 $data = $stmt->fetch(PDO::FETCH_ASSOC);
             } 
             else {
-                if ($rowData) {
-                    $stmt->execute([$rowData]);
-                } 
-                else {
-                    $stmt->execute();
-                }   
-              
-                // Fetch all data as an array of associative arrays(2D array)
+                // Fetch all records
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            }  
+            } 
     
             return $data;
         }
@@ -175,20 +186,33 @@ function get_db_data($table, $columm = null, $rowData = null, $onlyOne = null) {
     return null;
 }
 
-function delete_db_data($table, $id) {
+function delete_db_data($table, $conditions) {
     $pdo = get_db_connection();
 
     // Check if the connection is valid
     if (isset($pdo)) {
         try {
             // SQL query with placeholders
-            $query = "DELETE FROM $table WHERE id = ?;";
+            $query = "DELETE FROM $table";
+            $values = [];
+
+            // Build the WHERE clause dynamically if conditions are provided
+            if (!empty($conditions)) {
+                $whereClauses = [];
+                foreach ($conditions as $column => $rowData) {
+                    $whereClauses[] = "`$column` = ?";
+                    $values[] = $rowData;
+                }
+                $query .= " WHERE " . implode(" AND ", $whereClauses);
+            }
     
             // Prepare the SQL statement
-            $stmt = $pdo->prepare($query);
-    
-            // Bind values to the statement
-            $stmt->execute([$id]);
+            $stmt = $pdo->prepare($query . ';');
+
+            echo $query . ';';
+            print_r($values);
+            // Execute the statement with parameters
+            $stmt->execute($values);
     
             return true;
         }

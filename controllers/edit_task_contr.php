@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     if (!array_filter($errors)) {
-        $isTaskEdited = edit_task('update_db_data', $title, $dueDate, $description, $taskId);
+        $isTaskEdited = edit_task('update_db_data', $title, $dueDate, $description, $taskId, $_SESSION['user_id']);
 
         if ($isTaskEdited) {
             unset($_SESSION['errors']);
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'dueDate' => $dueDate,
             'description' => $description
         ];
-        header("Location: ../edit.php?task-id=$taskId");
+        header("Location: ../edit.php?task-id=". urlencode($taskId));
         exit;
     }
 } 

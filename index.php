@@ -12,7 +12,7 @@
     <h1 class="user-tasks-title">Tasks</h1>
 
     <?php if (isset($_SESSION['user_id'])): ?>
-      <?= render_user_tasks('get_user_tasks', 'get_db_data', $_SESSION['user_id']) ?>
+      <?= render_user_tasks(get_user_tasks('get_db_data', ['user_id' => $_SESSION['user_id']])) ?>
     <?php else: ?>
       <p>You must be logged in to see your current tasks.</p>
     <?php endif; ?>
