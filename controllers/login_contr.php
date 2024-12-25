@@ -26,7 +26,7 @@ function validate_password($password, $user_data) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once '../config/session_config.php';
     require_once '../models/db_model.php';
-    require_once '../models/login_model.php';
+    require_once '../models/auth_model.php';
 
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
@@ -40,18 +40,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!array_filter($errors)) {
         regenerate_session_id();
-        $_SESSION['user_id'] = $user_data['id'];
+        $_SESSION['userId'] = $user_data['id'];
         $_SESSION['username'] = htmlspecialchars($user_data['username']);
 
         unset($_SESSION['errors']);
-        unset($_SESSION['form_data']);
+        unset($_SESSION['formData']);
        
         header('Location: ../index.php');
         exit;
     } 
     else {
         $_SESSION['errors'] = $errors;
-        $_SESSION['form_data'] = [
+        $_SESSION['formData'] = [
             'username' => $username
         ];
 

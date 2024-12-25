@@ -1,3 +1,7 @@
+<?php 
+  require_once 'utils/utils.php';
+?>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +25,7 @@
           </a>
         </h1>
         <ul class="navbar__auth-btns">
-          <?php if (isset($_SESSION['user_id'])): ?>
+          <?php if (is_user_logged($_SESSION)): ?>
             <li><p><?= "Hello <strong>{$_SESSION['username']}</strong>"; ?></p></li>
             <li><a class="logout-btn" href="controllers/logout_contr.php?action=logout">Logout</a></li>
           <?php else: ?>

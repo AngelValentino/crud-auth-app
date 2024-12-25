@@ -1,31 +1,8 @@
 <?php
 
-function validate_title($title) {
-    if (empty($title)) {
-        return 'A title is required.';
-    } 
-    else if (strlen($title) > 150) {
-        return 'Title must be less than or equal 150 characters.';
-    }
-}
-
-function validate_due_date($dueDate) {
-    if (empty($dueDate)) {
-        return 'A due date is required.';
-    }
-}
-
-function validate_description($description) {
-    if (empty($description)) {
-        return 'A description is required.';
-    } 
-    else if (strlen($description) > 1000) {
-        return 'Description must be less than or equal 1000 characters.';
-    }
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once '../config/session_config.php';
+    require_once '../utils/utils.php';
     require_once '../models/db_model.php';
     require_once '../models/task_model.php';
 
@@ -41,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ];
 
     if (!array_filter($errors)) {
-        $isTaskEdited = edit_task('update_db_data', $title, $dueDate, $description, $taskId, $_SESSION['user_id']);
+        $isTaskEdited = edit_task('update_db_data', $title, $dueDate, $description, $taskId, $_SESSION['userId']);
 
         if ($isTaskEdited) {
             unset($_SESSION['errors']);

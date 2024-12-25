@@ -1,8 +1,9 @@
 <?php
   require_once 'config/session_config.php';
+  require_once 'utils/utils.php';
   require_once 'views/login_view.php';
 
-  if (isset($_SESSION['user_id'])) {
+  if (is_user_logged($_SESSION)) {
     header('Location: index.php');
   }
 ?>
@@ -19,7 +20,7 @@
 <body>
   <?php include 'templates/header.php'; ?>
   <main>
-    <?= render_login_form(check_signup_errors(), get_form_data()) ?>
+    <?= render_login_form(check_form_errors($_SESSION), get_form_data($_SESSION)) ?>
   </main>
   <?php include 'templates/footer.html'; ?>
 </body>

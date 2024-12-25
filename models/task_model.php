@@ -1,8 +1,8 @@
 <?php
 
-function add_task(callable $set_db_data, $title, $dueDate, $description, $user_id) {
+function add_task(callable $set_db_data, $title, $dueDate, $description, $userId) {
     $isTaskAdded = $set_db_data('tasks', [
-        'user_id' => $user_id,
+        'user_id' => $userId,
         'title' => $title,
         'due_date' => $dueDate,
         'description' => $description
@@ -21,14 +21,14 @@ function delete_task(callable $delete_db_data, $conditions) {
     return $isTaskDeleted;
 }
 
-function edit_task(callable $update_db_data, $title, $dueDate, $description, $taskId, $user_id) {
+function edit_task(callable $update_db_data, $title, $dueDate, $description, $taskId, $userId) {
     $isTaskUpdated = $update_db_data('tasks', [
         'title' => $title,
         'due_date' => $dueDate,
         'description' => $description
     ], [
         'id' => $taskId,
-        'user_id' => $user_id
+        'user_id' => $userId
     ]);
     return $isTaskUpdated;
 }
