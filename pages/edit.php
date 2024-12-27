@@ -1,5 +1,5 @@
 <?php
-  require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+  require_once __DIR__ . '/../config/constants_config.php';
   require_once PROJECT_ROOT . '/config/session_config.php';
   require_once PROJECT_ROOT . '/utils/utils.php';
   require_once PROJECT_ROOT . '/models/db_model.php';

@@ -5,13 +5,25 @@ function configure_session() {
     ini_set('session.use_only_cookies', 1);
     ini_set('session.use_strict_mode', 1);
 
-    session_set_cookie_params([
+    // Set session cookie parameters dynamically
+    $cookieParams = [
         'lifetime' => 1800, // 30 minutes
-        'domain' => 'localhost',
         'path' => '/',
-        'secure' => true,   // Ensure cookies are sent over HTTPS
+        'secure' => true,
         'httponly' => true  // Prevent access to cookies via JavaScript
-    ]);
+    ];
+
+    // Check if we are in a production environment
+    if ($_SERVER['SERVER_NAME'] == 'localhost' || $_SERVER['SERVER_NAME'] == '127.0.0.1') {
+        // Local development
+        $cookieParams['domain'] = 'localhost';
+    } 
+    else {
+        // Production environment
+        $cookieParams['domain'] = '.myapp.com';  // or your actual domain
+    }
+
+    session_set_cookie_params($cookieParams);
 }
 
 // Session regeneration function

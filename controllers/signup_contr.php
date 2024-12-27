@@ -43,7 +43,7 @@ function validate_password($password) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+    require_once __DIR__ . '/../config/constants_config.php';
     require_once PROJECT_ROOT . '/config/session_config.php'; 
     require_once PROJECT_ROOT . '/models/db_model.php'; 
     require_once PROJECT_ROOT . '/models/auth_model.php';

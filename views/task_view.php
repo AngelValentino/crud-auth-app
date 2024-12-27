@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+require_once __DIR__ . '/../config/constants_config.php';
 
 function format_task_entry($data, $key) {
     return $data ? $data[$key] : '';

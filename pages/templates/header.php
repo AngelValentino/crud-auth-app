@@ -1,5 +1,5 @@
 <?php 
-  require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+  require_once __DIR__ . '/../../config/constants_config.php';
   require_once PROJECT_ROOT . '/utils/utils.php';
 ?>
 
@@ -7,8 +7,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRUD auth app</title>
-  <link rel="stylesheet" href="<?= BASE_URL . '/styles/reset.css' ?>">
-  <link rel="stylesheet" href="<?= BASE_URL . '/styles/styles.css' ?>">
+  <link rel="stylesheet" href="<?= BASE_URL . '/styles/reset.css'; ?>">
+  <link rel="stylesheet" href="<?= BASE_URL . '/styles/styles.css'; ?>">
 </head>
   <body>
     <header class="navbar">

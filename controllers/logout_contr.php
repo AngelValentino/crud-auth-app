@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'logout') {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+    require_once __DIR__ . '/../config/constants_config.php';
     require_once PROJECT_ROOT . '/config/session_config.php';
     
     // Destroy all session data
