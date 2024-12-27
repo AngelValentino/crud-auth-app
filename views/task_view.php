@@ -1,4 +1,5 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
 
 function format_task_entry($data, $key) {
     return $data ? $data[$key] : '';
@@ -20,10 +21,11 @@ function render_manage_task_form($errors, $formData, $taskData = null, $taskId =
     $dueDateError = isset($errors['dueDate']) ? "<div class='error'>{$errors['dueDate']}</div>" : '';
     $descriptionError = isset($errors['description']) ? "<div class='error'>{$errors['description']}</div>" : '';
     $action = get_action($taskData);
+    $baseUrl = BASE_URL;
 
     // Return the HTML form with error messages and values injected
     return <<<HTML
-        <form class="manage-task-form" action="controllers/{$action}_task_contr.php" method="POST">
+        <form class="manage-task-form" action="{$baseUrl}/controllers/{$action}_task_contr.php" method="POST">
             <label for="manage-task-form__title">Title</label>
             $titleError
             <input name="title" type="text" id="manage-task-form__title" value="$title">
@@ -67,15 +69,16 @@ function render_user_tasks($tasks) {
             $dueDate = htmlspecialchars($task['due_date']);
             $description = htmlspecialchars($task['description']);
             $taskId = htmlspecialchars($task['id']);
+            $baseUrl = BASE_URL;
             
             $renderedTasks .= <<<HTML
                 <li class="task">
                     <h2>$title</h2>
                     <h5>$dueDate</h5>
                     <p>$description</p>
-                    <a class="task__delete-btn" href="controllers/delete_task_contr.php?action=delete&task-id=$taskId">Delete task</a>
+                    <a class="task__delete-btn" href="{$baseUrl}/controllers/delete_task_contr.php?action=delete&task-id=$taskId">Delete task</a>
                     <br>
-                    <a class="task__edit-btn" href="edit.php?task-id=$taskId">Edit task</a>
+                    <a class="task__edit-btn" href="{$baseUrl}/pages/edit.php?task-id=$taskId">Edit task</a>
                 </li>
             HTML;
         }

@@ -1,6 +1,8 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
 
 function render_signup_form($errors, $formData) {
+    $baseUrl = BASE_URL;
     // Assign values with htmlspecialchars to avoid XSS vulnerabilities
     $username = isset($formData['username']) ? htmlspecialchars($formData['username']) : '';
     $email = isset($formData['email']) ? htmlspecialchars($formData['email']) : '';
@@ -12,7 +14,7 @@ function render_signup_form($errors, $formData) {
 
     // Return the HTML form with error messages and values injected
     return <<<HTML
-        <form class="signup-form" action="controllers/signup_contr.php" method="POST">
+        <form class="signup-form" action="{$baseUrl}/controllers/signup_contr.php" method="POST">
             <h2>Sign Up</h2>
             
             <label for="signup-form__username-input">Username</label>

@@ -1,10 +1,11 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once '../config/session_config.php';
-    require_once '../utils/utils.php';
-    require_once '../models/db_model.php';
-    require_once '../models/task_model.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+    require_once PROJECT_ROOT . '/config/session_config.php';
+    require_once PROJECT_ROOT . '/utils/utils.php';
+    require_once PROJECT_ROOT . '/models/db_model.php';
+    require_once PROJECT_ROOT . '/models/task_model.php';
 
     $title = trim($_POST['title']);
     $dueDate = trim($_POST['dueDate']);
@@ -23,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($isTaskEdited) {
             unset($_SESSION['errors']);
             unset($_SESSION['formData']);
-            header('Location: ../index.php');
+            header('Location: ' . BASE_URL . '/index.php');
             exit;
         }
 
@@ -36,11 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'dueDate' => $dueDate,
             'description' => $description
         ];
-        header("Location: ../edit.php?task-id=". urlencode($taskId));
+        header('Location: ' . BASE_URL . '/pages/edit.php?task-id='. urlencode($taskId));
         exit;
     }
 } 
 else {
-    header('Location: ../index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }

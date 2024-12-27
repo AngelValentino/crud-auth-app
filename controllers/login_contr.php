@@ -24,9 +24,10 @@ function validate_password($password, $user_data) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once '../config/session_config.php';
-    require_once '../models/db_model.php';
-    require_once '../models/auth_model.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+    require_once PROJECT_ROOT . '/config/session_config.php';
+    require_once PROJECT_ROOT . '/models/db_model.php';
+    require_once PROJECT_ROOT . '/models/auth_model.php';
 
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
@@ -46,20 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         unset($_SESSION['errors']);
         unset($_SESSION['formData']);
        
-        header('Location: ../index.php');
+        header('Location: ' . BASE_URL . '/index.php');
         exit;
     } 
     else {
         $_SESSION['errors'] = $errors;
-        $_SESSION['formData'] = [
-            'username' => $username
-        ];
+        $_SESSION['formData'] = ['username' => $username];
 
-        header('Location: ../login.php');
+        header('Location:' . BASE_URL . '/pages/login.php');
         die();
     }
 }
 else {
-    header('Location: ../index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     die();
 }

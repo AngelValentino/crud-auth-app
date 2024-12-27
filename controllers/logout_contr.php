@@ -1,7 +1,8 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'logout') {
-    require_once '../config/session_config.php';
+    require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
+    require_once PROJECT_ROOT . '/config/session_config.php';
     
     // Destroy all session data
     session_unset();
@@ -11,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_GET['action'] === 'logout') {
     setcookie(session_name(), '', time() - 3600, '/'); // Expire the cookie
 
     // Redirect to login page (or home page)
-    header('Location: ../index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 } 
 else {
-    header('Location: ../index.php');
+    header('Location: ' . BASE_URL . '/index.php');
     exit;
 }

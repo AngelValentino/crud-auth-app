@@ -1,6 +1,8 @@
 <?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/crud-auth-app/config/constants_config.php';
 
 function render_login_form($errors, $formData) {
+    $baseUrl = BASE_URL;
     // Assign values with htmlspecialchars to avoid XSS vulnerabilities
     $username = isset($formData['username']) ? htmlspecialchars($formData['username']) : '';
 
@@ -10,7 +12,7 @@ function render_login_form($errors, $formData) {
 
     // Return the HTML form with error messages and values injected
     return <<<HTML
-        <form class="login-form" action="controllers/login_contr.php" method="POST">
+        <form class="login-form" action="{$baseUrl}/controllers/login_contr.php" method="POST">
             <h2>Log In</h2>
             
             <label for="login-form__username-input">Username</label>
