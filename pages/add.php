@@ -10,7 +10,7 @@
   <?php include PROJECT_ROOT . '/pages/templates/header.php'; ?>
   <main>
     <?php if (is_user_logged($_SESSION)): ?>
-      <?= render_add_task_form(check_form_errors($_SESSION), get_form_data($_SESSION)); ?>
+      <?= render_add_task_form(get_session_errors($_SESSION), get_form_data($_SESSION)); ?>
     <?php else: ?>
       <p>You must be logged in to add or manage a task.</p>
     <?php endif; ?>

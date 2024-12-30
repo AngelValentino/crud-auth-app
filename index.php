@@ -14,8 +14,8 @@
     <h2 class="user-tasks-title">Tasks</h2>
 
     <?php if (is_user_logged($_SESSION)): ?>
-      <?= render_task_errors(check_form_errors($_SESSION)) ?>
-      <?= render_user_tasks(get_user_tasks('get_db_data', ['user_id' => $_SESSION['userId']])) ?>
+      <?= render_task_errors(get_session_errors($_SESSION)); ?>
+      <?= render_user_tasks(get_user_tasks('get_db_data', ['user_id' => $_SESSION['userId']])); ?>
     <?php else: ?>
       <p class="guest-message">You must be logged in to see your current tasks.</p>
     <?php endif; ?>

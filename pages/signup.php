@@ -13,7 +13,7 @@
 <html lang="en">
   <?php include PROJECT_ROOT . '/pages/templates/header.php'; ?>
   <main>
-    <?= render_signup_form(check_form_errors($_SESSION), get_form_data($_SESSION)) ?>
+    <?= render_signup_form(get_session_errors($_SESSION), get_form_data($_SESSION)); ?>
   </main>
   <?php include PROJECT_ROOT . '/pages/templates/footer.html'; ?>
 </html>

@@ -32,7 +32,7 @@
 <html lang="en">
   <?php include PROJECT_ROOT . '/pages/templates/header.php'; ?>
   <main>
-    <?= render_edit_task_form(check_form_errors($_SESSION), get_form_data($_SESSION), $task, $_GET['task-id']); ?>
+    <?= render_edit_task_form(get_session_errors($_SESSION), get_form_data($_SESSION), $task, $_GET['task-id']); ?>
   </main>
   <?php include PROJECT_ROOT . '/pages/templates/footer.html'; ?>
 </html>

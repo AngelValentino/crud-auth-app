@@ -1,6 +1,6 @@
 <?php
 
-function check_form_errors(&$session) {
+function get_session_errors(&$session) {
     // Check if there are errors in the session, and display them if they exist
     if (isset($session['errors'])) {
         // Get errors from the session
