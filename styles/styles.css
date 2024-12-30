@@ -209,8 +209,28 @@ footer {
   border-radius: 5px;
 }
 
+@media screen and (max-width: 500px) {
+  .signup-form,
+  .login-form {
+    max-width: 65%;
+    width: 100%;
+    top: 50%;
+  }
+}
+
+@media screen and (pointer: fine) and (hover: hover) {
+  button,
+  a {
+    transition: opacity 0.25s;
+  }
+
+  button:hover,
+  a:hover {
+    opacity: 0.75;
+  }
+}
+
 .signup-form {
-  margin-right: 50px;
   margin-bottom: 35px;
 }
 
