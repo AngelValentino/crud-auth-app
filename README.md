@@ -6,7 +6,7 @@ The app features a **robust authentication system** that ensures secure user log
 
 ## Entity Relatinship Diagram
 
-![Entity Relationship Diagram for crud auth app, illustrating the relationships between various entities in the database schema.](https://i.imgur.com/rav7In8.jpeg)
+![Entity Relationship Diagram for crud auth app, illustrating the relationships between various entities in the database schema.](https://i.imgur.com/9wX86g4.jpeg)
 
 ## Simple Yet Powerful: A Valuable Resource for Learning PHP Backend Development
 
