@@ -48,7 +48,7 @@ function set_db_data($table, $data) {
             $placeholders = implode(', ', array_fill(0, count($data), '?')); // e.g., "?, ?, ?"
     
             // SQL query with placeholders
-            $query = "INSERT INTO $table ($columns_list) VALUES ($placeholders);";
+            $query = "INSERT INTO `$table` ($columns_list) VALUES ($placeholders);";
     
             // Prepare the SQL statement
             $stmt = $pdo->prepare($query);
@@ -87,7 +87,7 @@ function update_db_data($table, $dataToUpdate, $conditions) {
             // Dynamically construct the SET part of the query
             $setClause = '';
             foreach ($columns as $index => $column) {
-                $setClause .= format_column($column) . ' = ?';
+                $setClause .= "`$column` = ?";
 
                 // Add trailing comma and space if it is not the last element
                 if ($index < count($dataToUpdate) - 1) {
@@ -96,7 +96,7 @@ function update_db_data($table, $dataToUpdate, $conditions) {
             }
 
             // SQL query with placeholders
-            $query = "UPDATE $table SET $setClause";
+            $query = "UPDATE `$table` SET $setClause";
 
             // Build the WHERE clause dynamically if conditions are provided
             if (!empty($conditions)) {
@@ -193,7 +193,7 @@ function delete_db_data($table, $conditions) {
     if ($pdo) {
         try {
             // SQL query with placeholders
-            $query = "DELETE FROM $table";
+            $query = "DELETE FROM `$table`";
             $values = [];
 
             // Build the WHERE clause dynamically if conditions are provided
