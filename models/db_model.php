@@ -20,8 +20,8 @@ function get_db_connection() {
         return $pdo; 
     } 
     catch (PDOException $e) {
-        // If connection fails, display the error
-        echo "Connection failed: " . $e->getMessage();
+        // Log the detailed database connection error to the error log file
+        error_log("[" . date('Y-m-d H:i:s') . "] Database connection error: " . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../error_log.txt');
         // Return null if connection fails
         return null;
     }
@@ -37,7 +37,7 @@ function set_db_data($table, $data) {
     $pdo = get_db_connection();
 
     // Check if the connection is valid
-    if (isset($pdo)) {
+    if ($pdo) {
         try {
             // Extract column names and values from the $data array
             $columns = array_keys($data);
@@ -59,9 +59,9 @@ function set_db_data($table, $data) {
             return true;
         }
         catch (PDOException $e) {
-            // If connection fails, display the error
-            echo 'Query failed: ' . $e->getMessage();
-            return false;
+            // Log the error message when the insert data query fails
+            error_log("[" . date('Y-m-d H:i:s') . "] Insert data query connection error: " . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../error_log.txt');
+            return null;
         }
         finally {
             // Close the connection to the database
@@ -78,7 +78,7 @@ function update_db_data($table, $dataToUpdate, $conditions) {
     $pdo = get_db_connection();
 
     // Check if the connection is valid
-    if (isset($pdo)) {
+    if ($pdo) {
         try {
             // Extract column names and values from the $data array
             $columns = array_keys($dataToUpdate);
@@ -118,9 +118,9 @@ function update_db_data($table, $dataToUpdate, $conditions) {
             return true;
         }
         catch (PDOException $e) {
-            // If connection fails, display the error
-            echo 'Query failed: ' . $e->getMessage();
-            return false;
+            // Log the error message when the update data query fails
+            error_log("[" . date('Y-m-d H:i:s') . "] Update data query connection error: " . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../error_log.txt');
+            return null;
         }
         finally {
             // Close the connection to the database
@@ -129,7 +129,7 @@ function update_db_data($table, $dataToUpdate, $conditions) {
         }
     }
 
-    return false;
+    return null;
 }
 
 function get_db_data($table, $conditions = [], $onlyOne = null) {
@@ -137,7 +137,7 @@ function get_db_data($table, $conditions = [], $onlyOne = null) {
     $pdo = get_db_connection();
     
     // Check if the connection is valid
-    if (isset($pdo)) {
+    if ($pdo) {
         // Fetch tasks
         try {
             // Initialize query variable
@@ -172,8 +172,8 @@ function get_db_data($table, $conditions = [], $onlyOne = null) {
             return $data;
         }
         catch (PDOException $e) {
-            // If connection fails, display the error
-            echo 'Query failed: ' . $e->getMessage();
+            // Log the error message when the select data query fails
+            error_log("[" . date('Y-m-d H:i:s') . "] Select data query connection error: " . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../error_log.txt');
             return null;
         }
         finally {
@@ -190,7 +190,7 @@ function delete_db_data($table, $conditions) {
     $pdo = get_db_connection();
 
     // Check if the connection is valid
-    if (isset($pdo)) {
+    if ($pdo) {
         try {
             // SQL query with placeholders
             $query = "DELETE FROM $table";
@@ -217,10 +217,10 @@ function delete_db_data($table, $conditions) {
             return true;
         }
         catch (PDOException $e) {
-            // If connection fails, display the error
-            echo 'Query failed: ' . $e->getMessage();
+            // Log the error message when the delete data query fails
+            error_log("[" . date('Y-m-d H:i:s') . "] Delete data query connection error: " . $e->getMessage() . PHP_EOL, 3, __DIR__ . '/../error_log.txt');
             // Return null if connection fails
-            return false;
+            return null;
         }
         finally {
             // Close the connection to the database
@@ -229,5 +229,5 @@ function delete_db_data($table, $conditions) {
         }
     }
     
-    return false;
+    return null;
 }

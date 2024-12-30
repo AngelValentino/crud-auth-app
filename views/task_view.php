@@ -20,6 +20,7 @@ function render_manage_task_form($errors, $formData, $taskData = null, $taskId =
     $titleError = isset($errors['title']) ? "<div class='error'>{$errors['title']}</div>" : '';
     $dueDateError = isset($errors['dueDate']) ? "<div class='error'>{$errors['dueDate']}</div>" : '';
     $descriptionError = isset($errors['description']) ? "<div class='error'>{$errors['description']}</div>" : '';
+    $dbError = isset($errors['db']) ? "<div class='error'>{$errors['db']}</div>" : '';
     $action = get_action($taskData);
     $baseUrl = BASE_URL;
 
@@ -39,6 +40,7 @@ function render_manage_task_form($errors, $formData, $taskData = null, $taskId =
             <textarea name="description" id="manage-task-form__description" rows="10">$description</textarea>
 
             $renderHiddenInput
+            $dbError
             <button type="submit">Submit</button>
         </form>
     HTML;
@@ -52,9 +54,20 @@ function render_edit_task_form($errors, $formData, $taskData, $taskId) {
     return render_manage_task_form($errors, $formData, $taskData, $taskId);
 }
 
+function render_task_errors($errors) {
+    if (!$errors) return ''; 
+    $editTaskError = isset($errors['editTask']) ? "<div class='error'>{$errors['editTask']}</div>" : '';
+    $deleteTaskError = isset($errors['deleteTask']) ? "<div class='error'>{$errors['deleteTask']}</div>" : '';
+
+    return <<<HTML
+        $editTaskError
+        $deleteTaskError
+    HTML;
+}
+
 function render_user_tasks($tasks) {
     if ($tasks === null) {
-        return '<p>An error occurred while retrieving your tasks. Please try again later.</p>';
+        return '<p class="error">An error occurred while retrieving your tasks. Please try again later.</p>';
     }
 
     // If no tasks are found

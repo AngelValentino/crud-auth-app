@@ -13,30 +13,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $taskId = trim($_POST['taskId']);
 
     $errors = [
-        'title' => validate_title($title),
-        'dueDate' => validate_due_date($dueDate),
-        'description' => validate_description($description)
+        'title' => validate_task_title($title),
+        'dueDate' => validate_task_due_date($dueDate),
+        'description' => validate_task_description($description)
     ];
 
     if (!array_filter($errors)) {
         $isTaskEdited = edit_task('update_db_data', $title, $dueDate, $description, $taskId, $_SESSION['userId']);
 
-        if ($isTaskEdited) {
+        if ($isTaskEdited === null) {
+            $errors['db'] = 'Unable to edit your task at the moment. Please try again later.';
+            set_task_errors($_SESSION, $errors, $title, $dueDate, $description);
+            header('Location: ' . BASE_URL . '/pages/edit.php?task-id='. urlencode($taskId));
+            exit;
+        } 
+        else {
             unset($_SESSION['errors']);
             unset($_SESSION['formData']);
             header('Location: ' . BASE_URL . '/index.php');
             exit;
         }
-
-        exit('Database error occurred while editing a task.');
     } 
     else {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['formData'] = [
-            'title' => $title,
-            'dueDate' => $dueDate,
-            'description' => $description
-        ];
+        set_task_errors($_SESSION, $errors, $title, $dueDate, $description);
         header('Location: ' . BASE_URL . '/pages/edit.php?task-id='. urlencode($taskId));
         exit;
     }

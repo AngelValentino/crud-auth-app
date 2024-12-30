@@ -35,7 +35,7 @@ function is_user_logged($session) {
     return isset($session['userId']);
 }
 
-function validate_user_task($get, $session) {
+function validate_user_task_id($get, $session) {
     $taskId = $get['task-id'];
 
     if  (
@@ -53,7 +53,7 @@ function validate_user_task($get, $session) {
     }
 }
 
-function validate_title($title) {
+function validate_task_title($title) {
     if (empty($title)) {
         return 'A title is required.';
     } 
@@ -62,17 +62,26 @@ function validate_title($title) {
     }
 }
 
-function validate_due_date($dueDate) {
+function validate_task_due_date($dueDate) {
     if (empty($dueDate)) {
         return 'A due date is required.';
     }
 }
 
-function validate_description($description) {
+function validate_task_description($description) {
     if (empty($description)) {
         return 'A description is required.';
     } 
     else if (strlen($description) > 1000) {
         return 'Description must be less than or equal 1000 characters.';
     }
+}
+
+function set_task_errors(&$session, $errors, $title, $dueDate, $description) {
+    $session['errors'] = $errors;
+    $session['formData'] = [
+        'title' => $title,
+        'dueDate' => $dueDate,
+        'description' => $description
+    ];
 }

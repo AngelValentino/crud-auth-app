@@ -20,7 +20,7 @@ function configure_session() {
     } 
     else {
         // Production environment
-        $cookieParams['domain'] = '.myapp.com';  // or your actual domain
+        $cookieParams['domain'] = '.crudauthapp.com';
     }
 
     session_set_cookie_params($cookieParams);

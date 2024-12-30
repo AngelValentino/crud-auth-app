@@ -12,30 +12,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description']);
 
     $errors = [
-        'title' => validate_title($title),
-        'dueDate' => validate_due_date($dueDate),
-        'description' => validate_description($description)
+        'title' => validate_task_title($title),
+        'dueDate' => validate_task_due_date($dueDate),
+        'description' => validate_task_description($description)
     ];
 
     if (!array_filter($errors)) {
         $isTaskAdded = add_task('set_db_data', $title, $dueDate, $description, $_SESSION['userId']);
 
-        if ($isTaskAdded) {
+        if ($isTaskAdded === null) {
+            $errors['db'] = 'Unable to add your task at the moment. Please try again later.';
+            set_task_errors($_SESSION, $errors, $title, $dueDate, $description);
+            header('Location: ' . BASE_URL . '/pages/add.php');
+            exit;
+        } 
+        else {
             unset($_SESSION['errors']);
             unset($_SESSION['formData']);
             header('Location: ' . BASE_URL . '/index.php');
             exit;
         }
-
-        exit('Database error occurred while adding a task.');
     } 
     else {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['formData'] = [
-            'title' => $title,
-            'dueDate' => $dueDate,
-            'description' => $description
-        ];
+        set_task_errors($_SESSION, $errors, $title, $dueDate, $description);
         header('Location: ' . BASE_URL . '/pages/add.php');
         exit;
     }

@@ -11,6 +11,7 @@ function render_signup_form($errors, $formData) {
     $usernameError = isset($errors['username']) ? "<div class='error'>{$errors['username']}</div>" : '';
     $emailError = isset($errors['email']) ? "<div class='error'>{$errors['email']}</div>" : '';
     $passwordError = isset($errors['password']) ? "<div class='error'>{$errors['password']}</div>" : '';
+    $dbError = isset($errors['db']) ? "<div class='error'>{$errors['db']}</div>" : '';
 
     // Return the HTML form with error messages and values injected
     return <<<HTML
@@ -29,6 +30,7 @@ function render_signup_form($errors, $formData) {
             $passwordError
             <input id="signup-form__password-input" type="password" name="password">
 
+            $dbError
             <button class="signup-btn" type="submit">Sign Up</button>
         </form>
     HTML;

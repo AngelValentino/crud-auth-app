@@ -1,28 +1,24 @@
 <?php
 
 function add_task(callable $set_db_data, $title, $dueDate, $description, $userId) {
-    $isTaskAdded = $set_db_data('tasks', [
+    return $set_db_data('tasks', [
         'user_id' => $userId,
         'title' => $title,
         'due_date' => $dueDate,
         'description' => $description
     ]);
-
-    return $isTaskAdded;
 }
 
 function get_user_tasks(callable $get_db_data, $conditions, $onlyOne = null) {
-    $userTasks = $get_db_data('tasks', $conditions, $onlyOne);
-    return $userTasks;
+    return $get_db_data('tasks', $conditions, $onlyOne);
 }
 
 function delete_task(callable $delete_db_data, $conditions) {
-    $isTaskDeleted = $delete_db_data('tasks', $conditions);
-    return $isTaskDeleted;
+    return $delete_db_data('tasks', $conditions);
 }
 
 function edit_task(callable $update_db_data, $title, $dueDate, $description, $taskId, $userId) {
-    $isTaskUpdated = $update_db_data('tasks', [
+    return $update_db_data('tasks', [
         'title' => $title,
         'due_date' => $dueDate,
         'description' => $description
@@ -30,5 +26,4 @@ function edit_task(callable $update_db_data, $title, $dueDate, $description, $ta
         'id' => $taskId,
         'user_id' => $userId
     ]);
-    return $isTaskUpdated;
 }

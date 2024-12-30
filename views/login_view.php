@@ -9,6 +9,7 @@ function render_login_form($errors, $formData) {
     // Prepare error messages for each field
     $usernameError = isset($errors['username']) ? "<div class='error'>{$errors['username']}</div>" : '';
     $passwordError = isset($errors['password']) ? "<div class='error'>{$errors['password']}</div>" : '';
+    $dbError = isset($errors['db']) ? "<div class='error'>{$errors['db']}</div>" : '';
 
     // Return the HTML form with error messages and values injected
     return <<<HTML
@@ -23,6 +24,7 @@ function render_login_form($errors, $formData) {
             $passwordError
             <input id="login-form__password-input" type="password" name="password">
 
+            $dbError
             <button class="login-btn" type="submit">Log in</button>
         </form>
     HTML;
