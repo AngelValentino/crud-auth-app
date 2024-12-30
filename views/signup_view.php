@@ -8,10 +8,10 @@ function render_signup_form($errors, $formData) {
     $email = isset($formData['email']) ? htmlspecialchars($formData['email']) : '';
 
     // Prepare error messages for each field
-    $usernameError = isset($errors['username']) ? "<div class='error'>{$errors['username']}</div>" : '';
-    $emailError = isset($errors['email']) ? "<div class='error'>{$errors['email']}</div>" : '';
-    $passwordError = isset($errors['password']) ? "<div class='error'>{$errors['password']}</div>" : '';
-    $dbError = isset($errors['db']) ? "<div class='error'>{$errors['db']}</div>" : '';
+    $usernameError = isset($errors['username']) ? "<p class='error'>{$errors['username']}</p>" : '';
+    $emailError = isset($errors['email']) ? "<p class='error'>{$errors['email']}</p>" : '';
+    $passwordError = isset($errors['password']) ? "<p class='error'>{$errors['password']}</p>" : '';
+    $dbError = isset($errors['db']) ? "<p class='error'>{$errors['db']}</p>" : '';
 
     // Return the HTML form with error messages and values injected
     return <<<HTML

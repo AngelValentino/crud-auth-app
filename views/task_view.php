@@ -5,10 +5,6 @@ function format_task_entry($data, $key) {
     return $data ? $data[$key] : '';
 }
 
-function get_action($taskData) {
-    return $taskData ? 'edit' : 'add';
-}
-
 function render_manage_task_form($errors, $formData, $taskData = null, $taskId = null) {
     // Assign values with htmlspecialchars to avoid XSS vulnerabilities
     $title = isset($formData['title']) ? htmlspecialchars($formData['title']) : format_task_entry($taskData, 'title');
@@ -17,16 +13,18 @@ function render_manage_task_form($errors, $formData, $taskData = null, $taskId =
     $renderHiddenInput = $taskId ? "<input type='hidden' value='$taskId' name='taskId'>" : '';
 
     // Prepare error messages for each field
-    $titleError = isset($errors['title']) ? "<div class='error'>{$errors['title']}</div>" : '';
-    $dueDateError = isset($errors['dueDate']) ? "<div class='error'>{$errors['dueDate']}</div>" : '';
-    $descriptionError = isset($errors['description']) ? "<div class='error'>{$errors['description']}</div>" : '';
-    $dbError = isset($errors['db']) ? "<div class='error'>{$errors['db']}</div>" : '';
-    $action = get_action($taskData);
+    $titleError = isset($errors['title']) ? "<p class='error'>{$errors['title']}</p>" : '';
+    $dueDateError = isset($errors['dueDate']) ? "<p class='error'>{$errors['dueDate']}</p>" : '';
+    $descriptionError = isset($errors['description']) ? "<p class='error'>{$errors['description']}</p>" : '';
+    $dbError = isset($errors['db']) ? "<p class='error'>{$errors['db']}</p>" : '';
+    $action = $taskData ? 'edit' : 'add';
+    $formTitle = $taskData ? '<h2 class="manage-task-form__header-title">Edit task</h2>' : '<h2 class="manage-task-form__header-title">Add a task</h2>';
     $baseUrl = BASE_URL;
 
     // Return the HTML form with error messages and values injected
     return <<<HTML
         <form class="manage-task-form" action="{$baseUrl}/controllers/{$action}_task_contr.php" method="POST">
+            $formTitle
             <label for="manage-task-form__title">Title</label>
             $titleError
             <input name="title" type="text" id="manage-task-form__title" value="$title">
@@ -56,8 +54,8 @@ function render_edit_task_form($errors, $formData, $taskData, $taskId) {
 
 function render_task_errors($errors) {
     if (!$errors) return ''; 
-    $editTaskError = isset($errors['editTask']) ? "<div class='error'>{$errors['editTask']}</div>" : '';
-    $deleteTaskError = isset($errors['deleteTask']) ? "<div class='error'>{$errors['deleteTask']}</div>" : '';
+    $editTaskError = isset($errors['editTask']) ? "<p class='error'>{$errors['editTask']}</p>" : '';
+    $deleteTaskError = isset($errors['deleteTask']) ? "<p class='error'>{$errors['deleteTask']}</p>" : '';
 
     return <<<HTML
         $editTaskError
@@ -72,7 +70,7 @@ function render_user_tasks($tasks) {
 
     // If no tasks are found
     if (empty($tasks)) {
-        return '<p>No tasks to complete.</p>';
+        return '<p class="empty-tasks-message">No tasks to complete.</p>';
     }
     else {
         $renderedTasks = '<ul class="tasks_list">';
@@ -86,12 +84,14 @@ function render_user_tasks($tasks) {
             
             $renderedTasks .= <<<HTML
                 <li class="task">
-                    <h2>$title</h2>
-                    <h5>$dueDate</h5>
-                    <p>$description</p>
-                    <a class="task__delete-btn" href="{$baseUrl}/controllers/delete_task_contr.php?action=delete&task-id=$taskId">Delete task</a>
-                    <br>
-                    <a class="task__edit-btn" href="{$baseUrl}/pages/edit.php?task-id=$taskId">Edit task</a>
+                    <h3 class="task__title">$title</h3>
+                    <small class="task__due-date">$dueDate</small>
+                    <p class="task__description">$description</p>
+                    <div class="task__manage-btns-container">
+                        <a class="task__edit-btn" href="{$baseUrl}/pages/edit.php?task-id=$taskId">Edit task</a>
+                        <a class="task__delete-btn" href="{$baseUrl}/controllers/delete_task_contr.php?action=delete&task-id=$taskId">Delete task</a>
+                    </div>
+                   
                 </li>
             HTML;
         }

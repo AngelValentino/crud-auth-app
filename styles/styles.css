@@ -47,22 +47,7 @@ main {
   align-items: center;
 }
 
-.signup-btn,
-.login-btn,
-.logout-btn {
-  padding: 10px;
-  background-color: black;
-  color: white;
-  border-radius: 2px;
-  display: inline-block;
-}
-
-.login-btn {
-  background-color: seagreen;
-}
-
 /* End of Navigation */
-
 
 /* Footer */
 
@@ -79,14 +64,42 @@ footer {
 
 /* End of footer  */
 
-.user-tasks-title {
-  margin-bottom: 25px;
+/* Reusable classes */
+.guest-message,
+.empty-tasks-message {
+  margin-bottom: 15px;
 }
+
+.error {
+  color: red;
+  margin: 5px 0;
+}
+
+.signup-btn,
+.login-btn,
+.logout-btn {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.login-btn {
+  background-color: seagreen;
+}
+
+/* End of reusable classes */
 
 /* Manage task form */
 
+.manage-task-form__header-title {
+  margin-bottom: 25px;
+}
+
 .manage-task-form {
   max-width: 500px;
+  width: 100%;
   display: block;
 }
 
@@ -116,6 +129,7 @@ footer {
   background-color: green;
   color: white;
   padding: 10px 20px;
+  border-radius: 2px;
 }
 
 .add-task-btn {
@@ -129,6 +143,12 @@ footer {
 
 /* End of manage task form */
 
+/* Task list */
+
+.user-tasks-title {
+  margin-bottom: 25px;
+  font-size: 1.75rem;
+}
 
 .tasks_list {
   margin-bottom: 50px;
@@ -143,6 +163,28 @@ footer {
   padding: 10px;
 }
 
+.task__title {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+.task__due-date {
+  color: #3e3f44;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 3px;
+}
+
+.task__description {
+  margin-bottom: 10px;
+}
+
+.task__manage-btns-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
 .task__delete-btn {
   color: red;
 }
@@ -151,13 +193,20 @@ footer {
   color: green;
 }
 
-.error {
-  color: red;
-}
+/* End of task list */
+
+/* Signup/login form */
 
 .signup-form,
 .login-form {
-  display: inline-block;
+  padding: 25px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 300px;
+  background-color: #f8f8f8;
+  border-radius: 5px;
 }
 
 .signup-form {
@@ -174,7 +223,8 @@ footer {
 .signup-form label,
 .login-form input,
 .login-form label  {
-  display: block;
+  display: inline-block;
+  width: 100%;
 }
 
 .signup-form label,
@@ -187,3 +237,5 @@ footer {
   padding: 5px;
   margin-bottom: 15px;
 }
+
+/* End of signup/login form */
