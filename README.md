@@ -7,7 +7,3 @@ The app features a **robust authentication system** that ensures secure user log
 ## Entity Relatinship Diagram
 
 ![Entity Relationship Diagram for crud auth app, illustrating the relationships between various entities in the database schema.](https://i.imgur.com/9wX86g4.jpeg)
-
-## Simple Yet Powerful: A Valuable Resource for Learning PHP Backend Development
-
-This app is considered a basic example in the sense that it provides a simple foundation for understanding key concepts such as **authentication**, **connecting PHP to a MySQL database**, and how the **back-end** of an application works. While a CRUD Auth App may seem straightforward, it is a valuable resource for beginners to learn about backend operations, including how data is managed and secured within a database.
